@@ -3,6 +3,7 @@ class UsersController < ApplicationController
     skip_before_action :authorize, only: :create
 
     def create
+      # create! exceptions will be handled by the rescue_from ActiveRecord::RecordInvalid code
       user = User.create!(user_params)
       session[:user_id] = user.id
       render json: user, status: :created

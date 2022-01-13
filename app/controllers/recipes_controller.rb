@@ -3,8 +3,9 @@ class RecipesController < ApplicationController
     def index
         render json: Recipe.all
       end
-    
+   
       def create
+        # create! exceptions will be handled by the rescue_from ActiveRecord::RecordInvalid code
         recipe = @current_user.recipes.create!(recipe_params)
         render json: recipe, status: :created
       end
@@ -15,7 +16,7 @@ class RecipesController < ApplicationController
         recipe.update(recipe_params)
         render json: recipe
         else
-        render json: { error: "spice not found"}, status: :not_found
+        render json: { error: "Recipe not found"}, status: :not_found
         end
         end
     
