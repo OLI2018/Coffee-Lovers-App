@@ -5,6 +5,8 @@ class ApplicationController < ActionController::API
 
   before_action :authorize
 
+  attr_reader :current_user
+
   private
 
   def authorize

@@ -42,17 +42,20 @@ function RecipeItem ({recipe, onDeleteSpice, onUpdateSpice } ) {
           .then(onUpdateSpice);
       }
 
-
+      function destroyButton(recipe) {
+        if (recipe.can_destroy) {
+         return (
+      <Button variant="fill" color="primary" onClick={handleDeleteSpice}>
+            {isLoading ? "Loading..." : "Delete Recipe"}
+      </Button>
+            );
+          }
+        }
 
 
 
       return (
-        // <Wrapper>
-        //   {recipes.length > 0 ? (
-        //     recipes.map((recipe) => (
-        //       <Recipe key={recipe.id}
-        //               recipe = {recipe}
-        //               onDeleteSpice={handleDeleteSpice}>                  
+               
                 <Box>
                   <h2>{recipe.title}</h2>
                         
@@ -63,9 +66,9 @@ function RecipeItem ({recipe, onDeleteSpice, onUpdateSpice } ) {
                   </p>
                   <ReactMarkdown>{recipe.instructions}</ReactMarkdown>
 
-                  <Button variant="fill" color="primary" onClick={handleDeleteSpice}>
-                  {isLoading ? "Loading..." : "Delete Recipe"} </Button>
-
+                  {/* <Button variant="fill" color="primary" onClick={handleDeleteSpice}>
+                  {isLoading ? "Loading..." : "Delete Recipe"} </Button> */}
+                  {destroyButton(recipe)}
                   {/* <Buttonnew onClick={handleDeleteSpice}>Delete Me</Buttonnew> */}
 
 
@@ -76,17 +79,6 @@ function RecipeItem ({recipe, onDeleteSpice, onUpdateSpice } ) {
  
                 </Box>
     
-          //     </Recipe>
-          //   ))
-          // ) : (
-          //   <>
-          //     <h2>No Recipes Found</h2>
-          //     <Button as={Link} to="/new">
-          //       Make a New Recipe
-          //     </Button>
-          //   </>
-          // )}
-        // </Wrapper>
       );
     }
     
