@@ -20,7 +20,6 @@ function RecipeList( ) {
     );
   }
 
-
   function handleUpdateSpice(updatedSpice) {
     setRecipes((recipes) =>
     recipes.map((recipe) => {
@@ -28,9 +27,6 @@ function RecipeList( ) {
       })
     );
   }
-
-
-
 
   return (
     <Wrapper>

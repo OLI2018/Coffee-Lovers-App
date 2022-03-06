@@ -1,19 +1,14 @@
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
-// import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
-
-
 import StarRating from "./StarRating";
+import { Link } from "react-router-dom";
 
 function RecipeItem ({recipe, onDeleteSpice, onUpdateSpice } ) {
-
   const [isLoading, setIsLoading] = useState(false);
 
-
     const {id, rating } = recipe; 
-
    
     function handleDeleteSpice() {
       setIsLoading(true);
@@ -26,8 +21,6 @@ function RecipeItem ({recipe, onDeleteSpice, onUpdateSpice } ) {
           }
         });
       }
-
-
 
       function handleUpdateRating(pct) {
         const newRating = pct * 5;
@@ -43,40 +36,44 @@ function RecipeItem ({recipe, onDeleteSpice, onUpdateSpice } ) {
       }
 
       function destroyButton(recipe) {
-        if (recipe.can_destroy) {
-         return (
-      <Button variant="fill" color="primary" onClick={handleDeleteSpice}>
+        return recipe.can_destroy ? (
+          <Button variant="fill" color="primary" onClick={handleDeleteSpice}>
             {isLoading ? "Loading..." : "Delete Recipe"}
-      </Button>
-            );
-          }
-        }
+          </Button>
+        ) : (
+          <Button variant="disabled" disabled="disabled">{isLoading ? "Loading..." : "Delete Recipe"}</Button>
+        );
+      }
 
-
+      function editButton(recipe) {
+        return recipe.can_edit ? (
+          <Button as={Link} to={ `/edit/${recipe.id}` }>Edit</Button>
+        ) : (
+          <Button variant="disabled" disabled="disabled">Edit</Button>
+        );
+      }
 
       return (
                
                 <Box>
                   <h2>{recipe.title}</h2>
-                        
+                     
                   <p>
                     <em>Time to Complete: {recipe.minutes_to_complete} minutes</em>
                     &nbsp;·&nbsp;
-                    <cite>By <b> {recipe.user.username} </b> </cite>
+                    <cite>By <b> {recipe.user.username} </b> </cite>                  
                   </p>
-                  <ReactMarkdown>{recipe.instructions}</ReactMarkdown>
 
+                   <ReactMarkdown>{recipe.instructions}</ReactMarkdown>
                   {/* <Button variant="fill" color="primary" onClick={handleDeleteSpice}>
                   {isLoading ? "Loading..." : "Delete Recipe"} </Button> */}
+                  {editButton(recipe)}
                   {destroyButton(recipe)}
                   {/* <Buttonnew onClick={handleDeleteSpice}>Delete Me</Buttonnew> */}
-
 
                Rating {" "}
           <StarRating percentage={rating / 5} onClick={handleUpdateRating} />
 
-
- 
                 </Box>
     
       );
@@ -107,5 +104,3 @@ function RecipeItem ({recipe, onDeleteSpice, onUpdateSpice } ) {
     
 
     export default RecipeItem;
-
-

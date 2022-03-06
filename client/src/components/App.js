@@ -4,10 +4,11 @@ import NavBar from "./NavBar";
 import Login from "../pages/Login";
 import RecipeList from "../pages/RecipeList";
 import NewRecipe from "../pages/NewRecipe";
+import EditRecipe from "../pages/EditRecipe";
 
 function App() {
 
-  require('react-dom');
+require('react-dom');
 window.React2 = require('react');
 console.log(window.React1 === window.React2);
 
@@ -29,6 +30,9 @@ console.log(window.React1 === window.React2);
       <NavBar user={user} setUser={setUser} />
       <main>
         <Switch>
+          <Route path="/edit/:id">
+            { ( { match: { params: { id } } } ) => <EditRecipe user={user} recipeId={id} /> }
+          </Route>
           <Route path="/new">
             <NewRecipe user={user} />
           </Route>

@@ -3,6 +3,7 @@ import styled from "styled-components";
 const COLORS = {
   primary: {
     "--main": "#303179",
+    "--disabled": "#70708a",
     // "--main": "indigo",
     "--accent": "white",
   },
@@ -18,6 +19,8 @@ function Button({ variant = "fill", color = "primary", ...props }) {
   let Component;
   if (variant === "fill") {
     Component = FillButton;
+  } else if (variant === "disabled") {
+    Component = DisabledButton;
   } else if (variant === "outline") {
     Component = OutlineButton;
   }
@@ -38,7 +41,15 @@ const ButtonBase = styled.button`
 const FillButton = styled(ButtonBase)`
   background-color: var(--main);
   color: var(--accent);
+  &:hover {
+    opacity: 0.9;
+  }
+`;
 
+const DisabledButton = styled(ButtonBase)`
+  cursor: not-allowed; 
+  background-color: var(--disabled);
+  color: var(--accent);
   &:hover {
     opacity: 0.9;
   }
@@ -48,7 +59,6 @@ const OutlineButton = styled(ButtonBase)`
   background-color: white;
   color: var(--main);
   border: 2px solid var(--main);
-
   &:hover {
     background: hsl(235deg 85% 97%);
   }

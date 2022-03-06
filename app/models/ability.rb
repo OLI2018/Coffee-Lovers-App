@@ -1,14 +1,12 @@
 class Ability
   include CanCan::Ability
-
   def initialize(user)
     can :read, :all
     return unless user.present?  # additional permissions for logged in users (they can read their own posts)
-    can :destroy, Recipe, user: user
+    can [:destroy, :update], Recipe, user: user
 
     # Define abilities for the passed in user here. For example:
-    #
-    #   user ||= User.new # guest user (not logged in)
+      #   user ||= User.new # guest user (not logged in)
     #   if user.admin?
     #     can :manage, :all
     #   else
